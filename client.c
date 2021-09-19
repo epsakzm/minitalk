@@ -6,7 +6,7 @@
 /*   By: hyeopark <hyeopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 15:42:25 by hyeopark          #+#    #+#             */
-/*   Updated: 2021/09/19 15:08:22 by hyeopark         ###   ########.fr       */
+/*   Updated: 2021/09/20 02:30:50 by hyeopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,25 +37,30 @@ int		send_char(pid_t pid, char c)
 
 int		send_message(pid_t pid, char *msg)
 {
-	while (ft_is_printable(*msg))
+	while (*msg >= 32 && *msg <= 126)
 		if (!send_char(pid, *msg++))
 			return (0);
-	return (send_char(pid, 0b1111111));
+	return (send_char(pid, 0));
 }
 
 int		main(int argc, char *argv[])
 {
 	int		pid;
 
-	if (argc == 3)
+	if (argc != 3)
 	{
-		pid = ft_atoi(argv[1]);
-		if (pid > SIG_MAX)
-			return (1);
-		if (!send_message(pid, argv[2]))
-			return (1);
-	}
-	else
+		ft_putstr("Argument(s) input error");
 		return (1);
+	}
+	if ((pid = ft_atoi(argv[1])) > SIG_MAX)
+	{
+		ft_putstr("pid input error");
+		return (1);
+	}
+	if (!send_message(pid, argv[2]))
+	{
+		ft_putstr("message error");
+		return (1);
+	}
 	return (0);
 }

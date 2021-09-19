@@ -6,7 +6,7 @@
 /*   By: hyeopark <hyeopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 20:41:37 by hyeopark          #+#    #+#             */
-/*   Updated: 2021/09/17 20:45:03 by hyeopark         ###   ########.fr       */
+/*   Updated: 2021/09/20 02:31:25 by hyeopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,56 +37,47 @@ void		ft_putnbr(int nb)
 	}
 }
 
-static char		*ft_strrev(char *s)
+void		ft_putstr(char *str)
 {
-	int			len;
-	int			i;
-	char		temp;
+	while(*str)
+	{
+		ft_putchar(*str);
+		str++;
+	}
+}
+
+void		ft_mem_reset(void *b, size_t len)
+{
+	unsigned int	*ptr;
+
+	ptr = b;
+	while (len--)
+		*ptr++ = 0;
+}
+
+int			ft_atoi(const char *str)
+{
+	size_t	i;
+	size_t	out;
+	int		neg;
 
 	i = 0;
-	len = ft_strlen(s);
-	while (i < len / 2)
+	neg = 1;
+	out = 0;
+	while (str[i] == '\t' || str[i] == '\n'
+		|| str[i] == '\v' || str[i] == '\f'
+		|| str[i] == '\r' || str[i] == ' ')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		temp = s[i];
-		s[i] = s[len - i - 1];
-		s[len - i - 1] = temp;
+		if (str[i] == '-')
+			neg = -1;
 		i++;
 	}
-	return (s);
-}
-
-static int		ft_intlen(unsigned int n)
-{
-	int cnt;
-
-	cnt = 0;
-	while (n > 0)
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		cnt++;
-		n /= 10;
+		out = out * 10 + (str[i] - '0');
+		i++;
 	}
-	return (cnt);
-}
-
-char			*ft_itoa(int n)
-{
-	char			*temp;
-	unsigned int	nb;
-	int				i;
-
-	nb = (n < 0) ? (unsigned int)-n : (unsigned int)n;
-	if (!(temp = (char*)malloc(sizeof(char) * (ft_intlen(nb) + 2))))
-		return (NULL);
-	i = 0;
-	while (1)
-	{
-		temp[i++] = nb % 10 + '0';
-		nb /= 10;
-		if (!nb)
-			break ;
-	}
-	if (n < 0)
-		temp[i++] = '-';
-	temp[i] = 0;
-	return (ft_strrev(temp));
+	return (out * neg);
 }
