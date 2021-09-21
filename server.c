@@ -6,13 +6,13 @@
 /*   By: hyeopark <hyeopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 13:43:46 by hyeopark          #+#    #+#             */
-/*   Updated: 2021/09/20 02:40:09 by hyeopark         ###   ########.fr       */
+/*   Updated: 2021/09/20 03:04:17 by hyeopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	get_bit(int signal)
+void	handler(int signal)
 {
 	static char		c;
 	static int		len;
@@ -45,12 +45,13 @@ void	get_bit(int signal)
 int main(void)
 {
 	pid_t	pid;
+	
 	pid = getpid();
 	ft_putstr("server pid = ");
 	ft_putnbr((int)pid);
 	ft_putstr("\n");
-	signal(SIGUSR1, get_bit);
-	signal(SIGUSR2, get_bit);
+	signal(SIGUSR1, handler);
+	signal(SIGUSR2, handler);
 	while (1);
 	return (0);
 }

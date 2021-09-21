@@ -6,7 +6,7 @@
 /*   By: hyeopark <hyeopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 15:42:25 by hyeopark          #+#    #+#             */
-/*   Updated: 2021/09/20 02:30:50 by hyeopark         ###   ########.fr       */
+/*   Updated: 2021/09/21 23:16:04 by hyeopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		main(int argc, char *argv[])
 	}
 	if (!send_message(pid, argv[2]))
 	{
-		ft_putstr("message error");
+		ft_putstr("pid input error");
 		return (1);
 	}
 	return (0);
