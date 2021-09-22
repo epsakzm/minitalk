@@ -6,7 +6,7 @@
 /*   By: hyeopark <hyeopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 20:41:37 by hyeopark          #+#    #+#             */
-/*   Updated: 2021/09/22 16:36:01 by hyeopark         ###   ########.fr       */
+/*   Updated: 2021/09/22 16:44:49 by hyeopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_putnbr(int nb)
 
 void	ft_putstr(char *str)
 {
-	while(*str)
+	while (*str)
 	{
 		ft_putchar(*str);
 		str++;
@@ -55,7 +55,7 @@ void	ft_mem_reset(void *b, size_t len)
 		*ptr++ = 0;
 }
 
-int		ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	size_t	i;
 	size_t	out;
