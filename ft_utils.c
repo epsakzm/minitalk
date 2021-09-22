@@ -6,7 +6,7 @@
 /*   By: hyeopark <hyeopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 20:41:37 by hyeopark          #+#    #+#             */
-/*   Updated: 2021/09/22 16:44:49 by hyeopark         ###   ########.fr       */
+/*   Updated: 2021/09/22 23:29:17 by hyeopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ void	ft_putstr(char *str)
 	}
 }
 
-void	ft_mem_reset(void *b, size_t len)
+void	ft_mem_reset(void *b, size_t len, int *num)
 {
 	unsigned int	*ptr;
 
+	*num = 0;
 	ptr = b;
 	while (len--)
 		*ptr++ = 0;
