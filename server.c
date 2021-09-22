@@ -6,7 +6,7 @@
 /*   By: hyeopark <hyeopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 13:43:46 by hyeopark          #+#    #+#             */
-/*   Updated: 2021/09/23 00:24:21 by hyeopark         ###   ########.fr       */
+/*   Updated: 2021/09/23 00:31:41 by hyeopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	handler(int signal)
 {
 	static char		c;
 	static int		len;
-	static int		bit_cnt;
+	static int		bit;
 	static char		buf[BUF_SIZE];
 
 	if (len == BUF_SIZE)
@@ -25,9 +25,9 @@ void	handler(int signal)
 		ft_mem_reset(buf, BUF_SIZE, &len);
 	}
 	c = (c << 1) + signal - 30;
-	if (++bit_cnt == 7)
+	if (++bit == 7)
 	{
-		bit_cnt = 0;
+		bit = 0;
 		if (c == 0)
 		{
 			ft_putstr(buf);
