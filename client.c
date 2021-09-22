@@ -6,7 +6,7 @@
 /*   By: hyeopark <hyeopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 15:42:25 by hyeopark          #+#    #+#             */
-/*   Updated: 2021/09/22 16:08:46 by hyeopark         ###   ########.fr       */
+/*   Updated: 2021/09/22 16:39:59 by hyeopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		send_bit(pid_t pid, char c)
 int		send_char(pid_t pid, char c)
 {
 	int		radix;
-	
+
 	radix = 6;
 	while (radix >= 0)
 		if (!send_bit(pid, c & (1 << radix--)))

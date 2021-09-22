@@ -6,7 +6,7 @@
 /*   By: hyeopark <hyeopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 13:43:46 by hyeopark          #+#    #+#             */
-/*   Updated: 2021/09/22 16:08:31 by hyeopark         ###   ########.fr       */
+/*   Updated: 2021/09/22 16:37:18 by hyeopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@ void	handler(int signal)
 	static int		bit_cnt;
 	static char		s[1000];
 
-	if (len == 1000)
-	{
-		ft_putstr(s);
-		ft_mem_reset(s, 1000);
-		len = 0;
-	}
 	c = (c << 1) + signal - 30;
 	if (++bit_cnt == 7)
 	{
@@ -42,10 +36,10 @@ void	handler(int signal)
 	}
 }
 
-int		main(void)
+int	main(void)
 {
 	pid_t	pid;
-	
+
 	pid = getpid();
 	ft_putstr("server pid = ");
 	ft_putnbr((int)pid);

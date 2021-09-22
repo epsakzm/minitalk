@@ -6,18 +6,18 @@
 /*   By: hyeopark <hyeopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 20:41:37 by hyeopark          #+#    #+#             */
-/*   Updated: 2021/09/20 02:31:25 by hyeopark         ###   ########.fr       */
+/*   Updated: 2021/09/22 16:36:01 by hyeopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void		ft_putchar(char c)
+void	ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
 
-void		ft_putnbr(int nb)
+void	ft_putnbr(int nb)
 {
 	if (nb >= 0)
 	{
@@ -37,7 +37,7 @@ void		ft_putnbr(int nb)
 	}
 }
 
-void		ft_putstr(char *str)
+void	ft_putstr(char *str)
 {
 	while(*str)
 	{
@@ -46,7 +46,7 @@ void		ft_putstr(char *str)
 	}
 }
 
-void		ft_mem_reset(void *b, size_t len)
+void	ft_mem_reset(void *b, size_t len)
 {
 	unsigned int	*ptr;
 
@@ -55,7 +55,7 @@ void		ft_mem_reset(void *b, size_t len)
 		*ptr++ = 0;
 }
 
-int			ft_atoi(const char *str)
+int		ft_atoi(const char *str)
 {
 	size_t	i;
 	size_t	out;
