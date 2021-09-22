@@ -6,7 +6,7 @@
 /*   By: hyeopark <hyeopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 15:42:25 by hyeopark          #+#    #+#             */
-/*   Updated: 2021/09/21 23:16:04 by hyeopark         ###   ########.fr       */
+/*   Updated: 2021/09/22 16:08:46 by hyeopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		send_bit(pid_t pid, char c)
 		ret = kill(pid, SIGUSR1);
 	else
 		ret = kill(pid, SIGUSR2);
-	usleep(300);
+	usleep(200);
 	return (ret + 1);
 }
 
@@ -52,11 +52,7 @@ int		main(int argc, char *argv[])
 		ft_putstr("Argument(s) input error");
 		return (1);
 	}
-	if ((pid = ft_atoi(argv[1])) > SIG_MAX)
-	{
-		ft_putstr("pid input error");
-		return (1);
-	}
+	pid = ft_atoi(argv[1]);
 	if (!send_message(pid, argv[2]))
 	{
 		ft_putstr("pid input error");

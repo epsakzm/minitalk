@@ -6,7 +6,7 @@
 /*   By: hyeopark <hyeopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 13:43:46 by hyeopark          #+#    #+#             */
-/*   Updated: 2021/09/20 03:04:17 by hyeopark         ###   ########.fr       */
+/*   Updated: 2021/09/22 16:08:31 by hyeopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	handler(int signal)
 	}
 }
 
-int main(void)
+int		main(void)
 {
 	pid_t	pid;
 	
@@ -52,6 +52,7 @@ int main(void)
 	ft_putstr("\n");
 	signal(SIGUSR1, handler);
 	signal(SIGUSR2, handler);
-	while (1);
+	while (1)
+		;
 	return (0);
 }

@@ -6,14 +6,13 @@
 /*   By: hyeopark <hyeopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 20:45:16 by hyeopark          #+#    #+#             */
-/*   Updated: 2021/09/20 02:31:44 by hyeopark         ###   ########.fr       */
+/*   Updated: 2021/09/22 16:08:31 by hyeopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINITALK_H
 # define MINITALK_H
 
-#define SIG_MAX 0x8000
 # include <unistd.h>
 # include <signal.h>
 # include <stdlib.h>
