@@ -6,79 +6,89 @@
 /*   By: hyeopark <hyeopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 20:41:37 by hyeopark          #+#    #+#             */
-/*   Updated: 2021/09/22 23:29:17 by hyeopark         ###   ########.fr       */
+/*   Updated: 2021/09/26 16:40:01 by hyeopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+static int	num_abs(int n)
+{
+	if (n < 0)
+		return (-n);
+	return (n);
+}
+
+static int	num_length(int n)
+{
+	int		len;
+
+	len = 0;
+	if (n == 0)
+		return (1);
+	if (n < 0)
+		len++;
+	while (n != 0)
+	{
+		n /= 10;
+		len++;
+	}
+	return (len);
+}
+
+char	*ft_itoa(int n)
+{
+	char		*out;
+	int			len;
+
+	len = num_length(n);
+	out = (char *)malloc(sizeof(char) * (len + 1));
+	if (!out)
+		return (0);
+	out[len--] = '\0';
+	if (n < 0)
+	{
+		out[0] = '-';
+		n *= -1;
+	}
+	if (n == 0)
+		out[len] = '0';
+	while (n != 0)
+	{
+		out[len] = '0' + num_abs(n % 10);
+		n /= 10;
+		len--;
+	}
+	return (out);
+}
 
 void	ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
 
-void	ft_putnbr(int nb)
+void	ft_putnbr(int n)
 {
-	if (nb >= 0)
-	{
-		if (nb > 9)
-			ft_putnbr(nb / 10);
-		ft_putchar(nb % 10 + '0');
-	}
-	else if (nb == -2147483648)
-	{
-		ft_putnbr(nb / 10);
-		ft_putchar('8');
-	}
-	else
+	int	tmp;
+
+	if (n < 0)
 	{
 		ft_putchar('-');
-		ft_putnbr(-nb);
+		tmp = n % 10;
+		tmp = -tmp;
+		if (n <= -10)
+		{
+			n /= 10;
+			n = -n;
+			ft_putnbr(n);
+		}
+		ft_putchar(tmp + '0');
 	}
-}
-
-void	ft_putstr(char *str)
-{
-	while (*str)
+	else if (n >= 10)
 	{
-		ft_putchar(*str);
-		str++;
+		ft_putnbr(n / 10);
+		ft_putchar(n % 10 + '0');
 	}
-}
-
-void	ft_mem_reset(void *b, size_t len, int *num)
-{
-	unsigned int	*ptr;
-
-	*num = 0;
-	ptr = b;
-	while (len--)
-		*ptr++ = 0;
-}
-
-int	ft_atoi(const char *str)
-{
-	size_t	i;
-	size_t	out;
-	int		neg;
-
-	i = 0;
-	neg = 1;
-	out = 0;
-	while (str[i] == '\t' || str[i] == '\n'
-		|| str[i] == '\v' || str[i] == '\f'
-		|| str[i] == '\r' || str[i] == ' ')
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			neg = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		out = out * 10 + (str[i] - '0');
-		i++;
-	}
-	return (out * neg);
+	else if (n < 10)
+		ft_putchar(n + '0');
 }

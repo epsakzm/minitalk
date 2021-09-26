@@ -6,49 +6,76 @@
 /*   By: hyeopark <hyeopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 13:43:46 by hyeopark          #+#    #+#             */
-/*   Updated: 2021/09/23 00:31:41 by hyeopark         ###   ########.fr       */
+/*   Updated: 2021/09/26 16:35:42 by hyeopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	handler(int signal)
+void	write_msg(char *msg, int *end, int *pid)
 {
-	static char		c;
-	static int		len;
-	static int		bit;
-	static char		buf[BUF_SIZE];
-
-	if (len == BUF_SIZE)
+	if (*end)
 	{
-		ft_putstr(buf);
-		ft_mem_reset(buf, BUF_SIZE, &len);
-	}
-	c = (c << 1) + signal - 30;
-	if (++bit == 7)
-	{
-		bit = 0;
-		if (c == 0)
+		if (*msg == 0)
 		{
-			ft_putstr(buf);
-			ft_mem_reset(buf, BUF_SIZE, &len);
-			return ;
+			kill(*pid, SIGUSR1);
+			*end = 0;
+			*pid = 0;
 		}
-		buf[len++] = c;
-		c = 0;
+		else
+			*pid = *pid * 10 + *msg - '0';
+		*msg = 0;
 	}
+	else
+	{
+		write(1, msg, 1);
+		if (*msg == 0)
+		{
+			write(1, "\n", 1);
+			*end = 1;
+		}
+		*msg = 0;
+	}
+}
+
+void	handler(int signo, siginfo_t *info, void *context)
+{
+	static char	msg;
+	static int	counter;
+	static int	end;
+	static int	pid;
+
+	(void)info;
+	(void)context;
+	if (--counter == -1)
+		counter = 7;
+	if (signo == SIGUSR1)
+		msg |= (1 << counter);
+	else if (signo == SIGUSR2)
+		msg &= ~(1 << counter);
+	if (counter == 0)
+		write_msg(&msg, &end, &pid);
 }
 
 int	main(void)
 {
-	pid_t	pid;
+	struct sigaction	sigact;
 
-	pid = getpid();
-	ft_putstr("server pid = ");
-	ft_putnbr((int)pid);
-	ft_putstr("\n");
-	signal(SIGUSR1, handler);
-	signal(SIGUSR2, handler);
+	sigact.sa_sigaction = handler;
+	sigact.sa_flags = SA_SIGINFO;
+	write(1, "pid:", 4);
+	ft_putnbr(getpid());
+	write(1, "\n", 1);
+	if (sigaction(SIGUSR1, &sigact, NULL) != 0)
+	{
+		write(1, "Sigaction error.", 16);
+		exit(1);
+	}
+	if (sigaction(SIGUSR2, &sigact, NULL) != 0)
+	{
+		write(1, "Sigaction error.", 16);
+		exit(1);
+	}
 	while (1)
 		;
 	return (0);
